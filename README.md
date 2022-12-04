@@ -33,4 +33,7 @@ Code:
 Movie Recommender.ipynb
 Purpose: The actual recommender code which takes user inputs and shows recommended list
 
+Output:
+---------------
+The list of recommended movies will be shown in Jupyter Notebook cell output
 
