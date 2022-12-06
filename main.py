@@ -79,7 +79,7 @@ if len(param3) > 0:
     recolistdf = recolistdf.loc[recolistdf['cast'].str.lower().str.contains(param3.lower())]
 
 if recolistdf.empty:
-    sg.Popup(f"Movie details entered for {values[0]} does not have any matching recommendation. Please try another title.")
+    sg.Popup(f"Filter options entered for {values[0]} does not have any matching recommendation. Please try another title.")
     window.close()
     exit()
 
