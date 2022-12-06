@@ -1,4 +1,4 @@
-import move_recommender as rec
+import movie_recommender as rec
 import pandas as pd
 import numpy as np
 import os
@@ -7,10 +7,11 @@ import re
 import PySimpleGUI as sg
 from tkinter import *
 from  tkinter import ttk
+import sys
 
 prep_df = pd.read_csv("prep_movie_list_original.csv", sep=',', encoding='latin-1')
 
-layout = [[sg.Text("Enter Netflix Movie Info to Find Similar Options!")],
+layout = [[sg.Text("Enter a Netflix movie's details to find similar titles!")],
           [sg.Text("All fields not required, please leave blank if not used")],
           [sg.Text("Title", size =(15, 1)), sg.Input()],
           [sg.Text("Genre", size =(15, 1)), sg.Input()],
@@ -23,7 +24,15 @@ event, values = window.read()
 values[0].strip()
 #print('Vals after strip', values[0])
 #List
+rec_list = []
 rec_list = rec.Recommend_Movies(values[0])
+
+if rec_list == -2:
+    sg.Popup(f"Movie {values[0]} not present in Netflix. Please try another one.")
+    window.close()
+    exit()
+
+
 reco_list = rec_list
 
 '''
@@ -69,11 +78,18 @@ if len(param2) > 0:
 if len(param3) > 0:
     recolistdf = recolistdf.loc[recolistdf['cast'].str.lower().str.contains(param3.lower())]
 
+if recolistdf.empty:
+    sg.Popup(f"Movie details entered for {values[0]} does not have any matching recommendation. Please try another title.")
+    window.close()
+    exit()
+
 print(recolistdf.loc[:,"title"])
+
+
 
 s2 = '\n'.join([str(i) for i in recolistdf.loc[:,"title"]])
 s = '\n'.join([str(i) for i in rec_list])
-sg.PopupScrolled("The Following Movies are Recommended:", f"{s2}")
+sg.PopupScrolled("The following movies are recommended:", f"{s2}")
 
 # testing
 #print('Values', values[0])

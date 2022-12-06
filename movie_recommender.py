@@ -36,6 +36,7 @@ def Recommend_Movies(movie):
         movies_list=sorted(list(enumerate(distance)), reverse=True, key=lambda x : x[1])[1:11]
 
         if len(movies_list) > 0:
+            
             for i in movies_list:
                 #print(df8.iloc[i[0]].title)
                 t=prep_df.iloc[i[0]].title
@@ -43,7 +44,9 @@ def Recommend_Movies(movie):
                 reco_list.append(t)
         else:
             print('Movie '+ movie +' does not have any matching recommendation. Please try another one.')
+            return -1
     except:
         print('Movie '+ movie +' not present in Netflix. Please try another one.')
+        return -2
     
     return reco_list
