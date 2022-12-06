@@ -7,11 +7,12 @@ import re
 import PySimpleGUI as sg
 from tkinter import *
 from  tkinter import ttk
+import sys
 
 prep_df = pd.read_csv("prep_movie_list.csv", sep=',', encoding='latin-1')
 
 layout = [[sg.Text("Enter Netflix Movie Info to Find Similar Options!")],
-          [sg.Text("All fields not required, please leave blank if not used")],
+          [sg.Text("Title field required. All others are not. Please leave blank if not used")],
           [sg.Text("Title", size =(15, 1)), sg.Input()],
           [sg.Text("Genre", size =(15, 1)), sg.Input()],
           [sg.Text("Actor", size =(15, 1)), sg.Input()],
@@ -51,9 +52,13 @@ param3 = inp_param.rsplit('|',1)[1]
 #print(param3)
 reco_list = []
 reco_list = rec.Recommend_Movies(param1)
-#for x in reco_list:
-#    print(x)
-    
+
+if reco_list == -2:
+    sg.Popup(f"Movie {values[0]} not present in Netflix. Please try another one.")
+    window.close()
+    exit()
+
+
 recolistdf = pd.DataFrame(reco_list)
 recolistdf = recolistdf.rename(columns={0: 'title'})
 
@@ -77,6 +82,11 @@ if len(param2) > 0:
     recolistdf = recolistdf.loc[recolistdf['genre'].str.contains(param2.lower())]
 if len(param3) > 0:
     recolistdf = recolistdf.loc[recolistdf['cast'].str.lower().str.contains(param3.lower())]
+
+if recolistdf.empty:
+    sg.Popup(f"Movie details entered for {values[0]} does not have any matching recommendation. Please try another title.")
+    window.close()
+    exit()
 
 print(recolistdf.loc[:,"title"])
 
