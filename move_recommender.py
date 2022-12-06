@@ -5,7 +5,7 @@ import ast
 import re
 
 # Read the prepared data file
-prep_df = pd.read_csv("prep_movie_list_original.csv", sep=',', encoding='latin-1')
+prep_df = pd.read_csv("prep_movie_list.csv", sep=',', encoding='latin-1')
 # prep_df.head(2)
 #print(len(prep_df.index))
 
@@ -31,6 +31,7 @@ tfdf_similarity=cosine_similarity(tfdf_features)
 def Recommend_Movies(movie):
     #global reco_list
     reco_list = []
+    print(reco_list)
     try:
         movie_index=prep_df[prep_df['title']==movie].index[0]
         distance=similarity[movie_index]
@@ -49,6 +50,7 @@ def Recommend_Movies(movie):
                 else:
                     reco_list.append(t)
                     #print('add    ' + t)
+                    print(reco_list)
         else:
             print('Movie '+ movie +' does not have any matching recommendation. Please try another one.')
     except:

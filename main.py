@@ -8,7 +8,7 @@ import PySimpleGUI as sg
 from tkinter import *
 from  tkinter import ttk
 
-prep_df = pd.read_csv("prep_movie_list_original.csv", sep=',', encoding='latin-1')
+prep_df = pd.read_csv("prep_movie_list.csv", sep=',', encoding='latin-1')
 
 layout = [[sg.Text("Enter Netflix Movie Info to Find Similar Options!")],
           [sg.Text("All fields not required, please leave blank if not used")],
@@ -90,7 +90,9 @@ for movie in recolistdf['title']:
     print(re.sub("[^A-Za-z ]","",str(netflix_titles.loc[netflix_titles['title'] == movie.lower().title()]['overview'].values)))
     final_list.append(re.sub("[^A-Za-z ]","",str(netflix_titles.loc[netflix_titles['title'] == movie.lower().title()]['overview'].values)))
     print('\n')
+    final_list.append(' ')
     i = i + 1
+
 
 s2 = '\n'.join([str(i) for i in final_list])
 #s = '\n'.join([str(i) for i in rec_list])
