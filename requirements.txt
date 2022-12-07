@@ -1,4 +1,4 @@
-pandas
-numpy 
-scikit-learn scipy matplotlib
+pandas 
+scikit-learn
 pysimplegui
+numpy
