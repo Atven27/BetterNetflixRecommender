@@ -1,6 +1,4 @@
-pip install pandas
-pip install numpy 
-pip install scikit-learn scipy matplotlib
-pip install pysimplegui
-
-run main.py
+pandas
+numpy 
+scikit-learn scipy matplotlib
+pysimplegui
