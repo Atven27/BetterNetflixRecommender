@@ -1,4 +1,4 @@
-import move_recommender as rec
+import movie_recommender as rec
 import pandas as pd
 import numpy as np
 import os
